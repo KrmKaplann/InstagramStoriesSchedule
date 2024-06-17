@@ -107,7 +107,7 @@ def SoruCevapEtiketi(SoruNumarasi):
         ABCD = worksheet["C" + str(SoruBaslangic + index + IkiSoruArasiMesafe*(int(SoruNumarasi)-1))].value
         ChooseABCD.append(ABCD)
 
-    #### Doğru Cevabı Belirle ####
+    #### True Answer ####
     for index in range(4):
         SoruBaslangic = CountForQuestions + 3
         IkiSoruArasiMesafe = 8
@@ -288,7 +288,6 @@ def OneDriveStoryPartToGallery(TotalStory):
                     time.sleep(2)
                     for x in suffixlist:
                         try:
-                            # ikisi de çalışabiliyor...
                             try:
                                 time.sleep(1)
                                 driver.find_element(By.XPATH, '<FileUpload1>').click()
@@ -354,16 +353,11 @@ def ZoomInOrOut(element, ikiParmakArasiMesafe=30, ParmaklariYaklastir=10, Yakinl
             ParmaklariYaklastir = -ParmaklariYaklastir
         else:
             print("Lütfen Geçerli Bir Değer Giriniz:")
-        # Elementin konumunu al
 
-        # 374,272
-        # Ekran boyutlarını al
         window_size = driver.get_window_size()
         screen_width = window_size['width']
         screen_height = window_size['height']
-        # 375,667
-
-        # Elementin boyutunu al
+        
         size = element.size
         location = element.location
 
@@ -373,11 +367,10 @@ def ZoomInOrOut(element, ikiParmakArasiMesafe=30, ParmaklariYaklastir=10, Yakinl
         touch_action2 = TouchAction(driver)
         touch_action2.press(None, x=x_coordinate+ikiParmakArasiMesafe, y=y_coordinate).wait(1000).move_to(x=x_coordinate+ikiParmakArasiMesafe-ParmaklariYaklastir, y=y_coordinate).wait(1000).release()
         time.sleep(1)
-        # Üçüncü TouchAction
+        
         touch_action3 = TouchAction(driver)
         touch_action3.press(None, x=x_coordinate-ikiParmakArasiMesafe, y=y_coordinate).wait(1000).move_to(x=x_coordinate-ikiParmakArasiMesafe+ParmaklariYaklastir, y=y_coordinate).wait(1000).release()  # 13
 
-        # MultiAction oluştur
         multi_action = MultiAction(driver)
         multi_action.add(touch_action3, touch_action2)
         time.sleep(1)
@@ -390,11 +383,9 @@ def zoomTextSpecial(element, Sutun, Satir):
     KacXZoomOlsunExcelSplitted = KacXZoomOlsunExcel.split()
     KacXZoomOlsunExcel = KacXZoomOlsunExcelSplitted[3][0]
     for i in range(int(KacXZoomOlsunExcel)):
-        # Ekran boyutlarını al
         window_size = driver.get_window_size()
         screen_width = window_size['width']
         screen_height = window_size['height']
-        # Elementin boyutunu al
         touch_action2 = TouchAction(driver)
         touch_action2.press(x=120, y=400).wait(1000).move_to(x=120, y=450).release().perform()
         time.sleep(0.5)
@@ -687,7 +678,6 @@ def MetinEkle(Text, Sutun, Satir, MetinAnimasyonu="Pasif"):
     MetinVurgusuDurumSplitted = MetinVurgusuDurum.split()
     MetinVurgusuDurum = str(MetinVurgusuDurumSplitted[2])
 
-    # Devre Dışı, Etkin, Ters
     MetinVurgusuList = ["Etkin", "Devre Dışı", "Ters"]
     while True:
         element = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '<HighlightTextButton>')))
